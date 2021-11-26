@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bbs.service.UsersService;
+import com.bbs.v.Users;
 
 @Controller
 public class MainController {
@@ -75,6 +76,15 @@ public class MainController {
 	public String mailAuth(String user_mail, String auth_num) throws Exception{
 		
 		return "0";
+	}
+	
+	//path/joinAction
+	@RequestMapping(value="/joinAction", method = RequestMethod.POST)
+	public String joinActino(Users users, String addr1, String addr2, String addr3) throws Exception{
+		users.setUser_addr(addr1+" "+addr2+" "+addr3);
+		usersService.joinAction(users);
+		
+		return "redirect:/login";		
 	}
 	
 }

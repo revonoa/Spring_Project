@@ -5,6 +5,8 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.bbs.v.Users;
+
 @Repository
 public class UsersDAOImpl implements UsersDAO {
 	
@@ -40,6 +42,21 @@ public class UsersDAOImpl implements UsersDAO {
 		// TODO Auto-generated method stub
 		sqlSession.update(SESSION+".resetAuthnum", authmail);
 		
+	}
+
+
+	@Override
+	public void deleteAuthmail(String user_mail) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.delete(SESSION+".deleteAuthmail", user_mail);
+		
+	}
+
+
+	@Override
+	public void join(Users users) throws Exception {
+		// TODO Auto-generated method stub
+		sqlSession.insert(SESSION+".join", users);
 	}
 
 
