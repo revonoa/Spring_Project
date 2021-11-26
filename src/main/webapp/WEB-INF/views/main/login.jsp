@@ -27,8 +27,20 @@
 <title>JSP 게시판</title>
 <meta http-equiv="Conetent-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width" initial-scale="1">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/bootstrap.css">
-<link rel="stylesheet" href="<%= request.getContextPath() %>/css/custom.css">
+<link rel="stylesheet" href="${path}/resources/css/bootstrap.css">
+<link rel="stylesheet" href="${path}/resources/css/custom.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery.min.js" charset="UTF-8"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="${path}/resources/js/bootstrap.js"></script>
+
+<script>
+$(document).ready(function(){
+	var msg = '${msg}'
+	if(msg != null && msg != ''){
+		alert(msg);
+	}
+});
+</script>
 </head>
 
 <body>
@@ -50,7 +62,7 @@
 			<span class="icon-bar"></span>
 		</button>
 		<!-- a : url을 이동시켜주는 HTML 태그 href="" 속성에 경로 지정 -->
-		<a class="navbar-brand" href="<%= request.getContextPath() %>/home">JSP 게시판</a>
+		<a class="navbar-brand" href="${path }/">JSP 게시판</a>
 	</div>
 	<!-- 네비게이션 헤더 종료 -->
 	
@@ -61,16 +73,15 @@
 		<!-- ul : 순서가 없는 리스트를 만들어주는 HTML 태그 -->
 		<ul class="nav navbar-nav">
 			<!-- li : 리스트 하나의 요소를 만들어주는 HTML 태그 -->
-			<li class="active"><a href="<%= request.getContextPath() %>/home">메인</a></li>
-			<li><a href="<%= request.getContextPath() %>/bbs">게시판</a></li>
+			<li class="active"><a href="${path }/">메인</a></li>
+			<li><a href="${path }>/bbs">게시판</a></li>
 		</ul>
 		<!-- 메인 메뉴 종료 -->
 		
 		<!-- 마이페이지 메뉴 -->
 		<!-- 로그인이 되있지 않을 때 표시 -->
-		<%
-			if(user_id == null) {
-		%>
+
+		<c:if test="${empty user_id }">
 		<ul class="nav navbar-nav navbar-right">
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle"
@@ -79,14 +90,13 @@
 					마이페이지<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="<%= request.getContextPath() %>/home/login">로그인</a></li>
-					<li><a href="<%= request.getContextPath() %>/home/join">회원가입</a></li>
+					<li><a href="${path }/login">로그인</a></li>
+					<li><a href="${path }/join">회원가입</a></li>
 				</ul>
 			</li>
 		</ul>
-		<%
-			} else {
-		%>
+		</c:if>
+		<c:if test="${not empty user_id }">
 		<!-- 로그인이 되었을 때 표시 -->
 		<ul class="nav navbar-nav navbar-right">
 			<li class="dropdown">
@@ -96,20 +106,17 @@
 					마이페이지<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
-					<li><a href="<%= request.getContextPath() %>/home/logout">로그아웃</a></li>
+					<li><a href="${path }/logout">로그아웃</a></li>
 				</ul>
 			</li>
 		</ul>
-		<%
-			}
-		%>
+		</c:if>
 		<!-- 마이페이지 메뉴 종료 -->
 		
 	</div>
 	<!-- 네비게이션 메뉴 종료 -->
 	
 </nav>
-<!-- 메인 네비게이션 종료 -->
 
 <!-- 메인 컨텐츠 -->
 <div class="container">
